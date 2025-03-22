@@ -1,0 +1,77 @@
+type Event = record {
+  id : nat64;
+  name : text;
+  description : text;
+  venue : text;
+  date : text;
+  ticket_price : nat64;
+  total_tickets : nat64;
+  tickets_sold : nat64;
+  image_url : text;
+  ar_model_url : opt text;
+  organizer : principal;
+};
+
+type Ticket = record {
+  id : nat64;
+  event_id : nat64;
+  owner : principal;
+  purchase_date : nat64;
+  qr_code : text;
+  is_used : bool;
+};
+
+type TicketError = variant {
+  EventNotFound;
+  NoTicketsAvailable;
+  Unauthorized;
+  TicketNotFound;
+  TicketAlreadyUsed;
+  InvalidQRCode;
+};
+
+type CreateEventResult = variant {
+  Ok : nat64;
+  Err : TicketError;
+};
+
+type GetEventResult = variant {
+  Ok : Event;
+  Err : TicketError;
+};
+
+type GetTicketResult = variant {
+  Ok : Ticket;
+  Err : TicketError;
+};
+
+type MintTicketResult = variant {
+  Ok : Ticket;
+  Err : TicketError;
+};
+
+type ValidateTicketResult = variant {
+  Ok : bool;
+  Err : TicketError;
+};
+
+service : {
+  create_event : (
+    text,  // name
+    text,  // description
+    text,  // venue
+    text,  // date
+    nat64, // ticket_price
+    nat64, // total_tickets
+    text,  // image_url
+    opt text // ar_model_url
+  ) -> (CreateEventResult);
+  
+  get_all_events : () -> (vec Event) query;
+  get_event : (nat64) -> (GetEventResult) query;
+  
+  mint_ticket : (nat64) -> (MintTicketResult);
+  get_my_tickets : () -> (vec Ticket) query;
+  get_ticket : (nat64) -> (GetTicketResult) query;
+  validate_ticket : (nat64, text) -> (ValidateTicketResult);
+}

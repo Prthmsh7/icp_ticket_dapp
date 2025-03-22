@@ -1,0 +1,37 @@
+{
+  "canisters": {
+    "icp_ticket_dapp_backend": {
+      "candid": "src/icp_ticket_dapp_backend/icp_ticket_dapp_backend.did",
+      "package": "icp_ticket_dapp_backend",
+      "type": "rust"
+    },
+    "icp_ticket_dapp_frontend": {
+      "dependencies": [
+        "icp_ticket_dapp_backend"
+      ],
+      "source": [
+        "src/icp_ticket_dapp_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "icp_ticket_dapp_frontend"
+    },
+    "internet_identity": {
+      "type": "custom",
+      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz",
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      }
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

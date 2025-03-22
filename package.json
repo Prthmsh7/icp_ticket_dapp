@@ -1,0 +1,31 @@
+{
+  "name": "icp_ticket_dapp",
+  "version": "0.1.0",
+  "description": "Non-transferable NFT tickets powered by Internet Computer Protocol",
+  "keywords": [
+    "Internet Computer",
+    "ICP",
+    "NFT",
+    "Tickets",
+    "Blockchain"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "prebuild": "dfx generate",
+    "deploy:local": "dfx deploy --network=local",
+    "deploy:ic": "dfx deploy --network=ic",
+    "start": "dfx start --clean --background && dfx deploy && cd src/icp_ticket_dapp_frontend && npm run start",
+    "setup": "npm run setup --workspaces"
+  },
+  "workspaces": [
+    "src/icp_ticket_dapp_frontend"
+  ],
+  "author": "ICP Ticket DApp Team",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "lit-html": "^3.2.1",
+    "react-qr-code": "^2.0.15",
+    "vite-plugin-environment": "^1.1.3"
+  }
+}
